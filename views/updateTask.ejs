@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/updateTask.css" />
+  </head>
+  <body>
+    <div class="login-box">
+      <h2>Update name</h2>
+      <form>
+        <div class="user-box">
+          <input id="updateInput" type="text" required />
+          <label>Name:</label>
+          <a id="updateBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Update
+          </a>
+        </div>
+      </form>
+    </div>
+    <script>
+      var updateInput = document.getElementById("updateInput");
+
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+      let value = params.id;
+      console.log(value);
+
+      const getTask = async () => {
+        const res = await fetch(`/getTaskById/${value}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const { task } = await res.json();
+        updateInput.value = task.name;
+      };
+      getTask();
+
+      updateBtn.addEventListener("click", async () => {
+        data = {
+          name: updateInput.value,
+        };
+        await fetch(`/updateTask/${value}`, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        window.location.replace("/tasks");
+      });
+    </script>
+  </body>
+</html>

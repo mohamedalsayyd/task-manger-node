@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/login.css" />
+  </head>
+  <body>
+    <div class="login-box">
+      <h2>Login</h2>
+      <form >
+        <div class="user-box">
+          <input type="email" id="email-input" placeholder="Enter your email" required />
+          <label for="">Email</label>
+      </div>
+      <div class="user-box">
+        <input type="password" id="password-input" placeholder="Enter your password" />
+        <label for="">Password</label>
+      </div>
+      <a id="loginBtn" >
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      Submit
+      </a>
+    </div>
+      </form>
+    <script>
+      emailInput = document.getElementById("email-input");
+      passwordInput = document.getElementById("password-input");
+      loginBtn = document.getElementById("loginBtn");
+
+      loginBtn.addEventListener("click", async () => {
+        data = {
+          email: emailInput.value,
+          password: passwordInput.value,
+        };
+        const option = {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const res = await fetch("/login", option);
+        const { token } = await res.json();
+        console.log(token);
+        localStorage.setItem("token", token);
+        window.location.replace("/tasks");
+      });
+    </script>
+  </body>
+</html>

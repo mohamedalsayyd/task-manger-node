@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/homePage.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h1>To Do List App</h1>
+      <div class="btn-container">
+        <div class="login-box">
+          <form class="btn-container">
+            <a href="/register">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Register</a
+            >
+            <a href="/login">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              login
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      if (localStorage.getItem("token")) {
+        window.location.href = "/tasks";
+      }
+    </script>
+  </body>
+</html>
